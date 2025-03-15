@@ -39,8 +39,8 @@ const SideNav = () => {
         <div
           className={`${
             path === menuItem.path
-              ? "bg-primary text-white"
-              : "hover:bg-primary hover:text-white"
+              ? "bg-primary dark:text-black text-white"
+              : "hover:bg-primary dark:hover:text-black hover:text-white"
           }  flex m-2 mr-2 p-2  rounded-lg cursor-pointer`}
           key={index}
         >
