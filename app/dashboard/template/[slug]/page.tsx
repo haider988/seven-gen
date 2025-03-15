@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useParams } from "next/navigation"; // ✅ Use useParams() instead
 
 export interface Template {
   name: string;
@@ -25,13 +26,10 @@ export interface Form {
   required: boolean;
 }
 
-interface PageProps {
-  params: { slug: string };
-}
+const Page = () => {
+  const params = useParams(); // ✅ Correct way in App Router
 
-// Ensure params is properly handled
-const Page = ({ params }: PageProps) => {
-  if (!params?.slug) {
+  if (!params || !params.slug || typeof params.slug !== "string") {
     return <div>Invalid slug</div>;
   }
 

@@ -4,14 +4,14 @@ import { runAI } from "@/actions/ai";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import ReactMarkDown from 'react-markdown';
+import ReactMarkDown from "react-markdown";
 
 const Page = () => {
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [promptInput, setPromptInput] = useState("");
 
-  const handleClick = async (e:any) => {
+  const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     try {
@@ -39,7 +39,11 @@ const Page = () => {
       <Card className="mt-5">
         <CardHeader>AI Response will appear here...</CardHeader>
         <CardContent>
-          {isLoading ? <div>{"Loading..."}</div> : <ReactMarkDown>{response}</ReactMarkDown>}
+          {isLoading ? (
+            <div>{"Loading..."}</div>
+          ) : (
+            <ReactMarkDown>{response}</ReactMarkDown>
+          )}
         </CardContent>
       </Card>
     </div>
