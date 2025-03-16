@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { QueryRecord } from "@/utils/types";
 import { useUser } from "@clerk/nextjs";
 import { Loader2Icon } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface QueryResponse {
   queries: QueryRecord[];
@@ -24,7 +24,13 @@ const Page = () => {
   const { user } = useUser();
   const email = user?.primaryEmailAddress?.emailAddress || "";
 
-  const fetchQeuries = useCallback(async () => {
+  useEffect(() => {
+    if (page === 1 && email) fetchQeuries();
+  }, [page, email]);
+  useEffect(() => {
+    if (page > 1 && email) loadMoreQueries();
+  }, [page]);
+  const fetchQeuries = async () => {
     setIsLoading(true);
     try {
       const res = (await getQueries(email, page, perPage)) as QueryResponse;
@@ -35,14 +41,8 @@ const Page = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [email, page, perPage]);
-  useEffect(() => {
-    if (page === 1 && email) {
-      fetchQeuries();
-    }
-  }, [page, email, fetchQeuries]);
-
-  const loadMoreQueries = useCallback(async () => {
+  };
+  const loadMoreQueries = async () => {
     setIsLoading(true);
     try {
       const res = (await getQueries(email, page, perPage)) as QueryResponse;
@@ -53,14 +53,7 @@ const Page = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [email, page, perPage, queries]);
-
-  useEffect(() => {
-    if (page > 1 && email) {
-      loadMoreQueries();
-    }
-  }, [page, email, loadMoreQueries]);
-
+  };
   if (!queries.length)
     return (
       <div className="flex justify-center items-center h-screen">
