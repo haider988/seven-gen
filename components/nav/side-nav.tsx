@@ -39,9 +39,9 @@ const SideNav = () => {
         <div
           className={`${
             path === menuItem.path
-              ? "bg-primary dark:text-black text-white"
-              : "hover:bg-primary dark:hover:text-black hover:text-white"
-          }  flex m-2 mr-2 p-2  rounded-lg cursor-pointer`}
+              ? "border-primary text-primary"
+              : "hover:border-primary hover:text-primary"
+          }  flex m-2 mr-2 p-2  rounded-lg cursor-pointer border`}
           key={index}
         >
           <Link href={menuItem.path}>
