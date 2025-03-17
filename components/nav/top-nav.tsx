@@ -26,17 +26,21 @@ const TopNav = () => {
           >{`${user.fullName}'s Dashboard`}</Link>
         ) : null}
         <SignedOut>
-          <div className="mr-2">
-            <SignInButton />
-          </div>
-          <div>
-            <SignUpButton />
-          </div>
+          <SignInButton mode="modal">
+            <button className="mr-4  text-white rounded cursor-pointer">
+              Sign In
+            </button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <button className=" text-white rounded cursor-pointer">
+              Sign Up
+            </button>
+          </SignUpButton>
         </SignedOut>
         <SignedIn>
           <UserButton />
         </SignedIn>
-        <div className="ml-2">
+        <div className="ml-2 ">
           <ModeToggle />
         </div>
       </div>
