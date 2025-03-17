@@ -15,6 +15,8 @@ import { Editor } from "@toast-ui/react-editor";
 import toast from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
 import { Template } from "@/utils/types";
+import { useUsage } from "@/context/usage";
+
 
 const Page = () => {
   const params = useParams();
@@ -32,6 +34,7 @@ const Page = () => {
 
   //hooks
   const { user } = useUser();
+  const {fetchUsage} = useUsage();
   const email = user?.primaryEmailAddress?.emailAddress || "";
 
   useEffect(() => {
@@ -54,6 +57,9 @@ const Page = () => {
 
       // Save to database
       const response = await saveQuery(t, email, query, data);
+
+      //fetch credit counts
+      fetchUsage();
       console.log("Save Query Response:", response);
     } catch (error) {
       console.error("Error generating content:", error);

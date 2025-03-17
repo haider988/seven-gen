@@ -22,17 +22,17 @@ const QueryTable = ({ data }: Props) => {
       <table className="min-w-full bg-white dark:bg-gray-800 text-sm">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-left">TEMPLATE</th>
-            <th className="py-2 px-4 border-b text-left">QUERY</th>
-            <th className="py-2 px-4 border-b text-left">DATE</th>
-            <th className="py-2 px-4 border-b text-left">WORDS</th>
-            <th className="py-2 px-4 border-b text-left">COPY</th>
+            <th className="py-2 px-4  text-left">TEMPLATE</th>
+            <th className="py-2 px-4  text-left">QUERY</th>
+            <th className="py-2 px-4  text-left">DATE</th>
+            <th className="py-2 px-4  text-left">WORDS</th>
+            <th className="py-2 px-4  text-left">COPY</th>
           </tr>
         </thead>
         <tbody>
           {data.map((query) => (
             <tr key={query._id} className="hover:bg-gray-100 dark:bg-gray-600">
-              <td className="py-2 px-4 border-b">
+              <td className="py-2 px-4 ">
                 <div className="flex">
                   <Image
                     src={query.template.icon}
@@ -43,14 +43,14 @@ const QueryTable = ({ data }: Props) => {
                   <div className="ml-2">{query.template.name}</div>
                 </div>
               </td>
-              <td className="py-2 px-4 border-b line-clamp-2">{query.query}</td>
-              <td className="py-2 px-4 border-b ">
+              <td className="py-2 px-4  line-clamp-2">{query.query}</td>
+              <td className="py-2 px-4  ">
                 {new Date(query.createdAt).toLocaleDateString()}
               </td>
-              <td className="py-2 px-4 border-b ">
+              <td className="py-2 px-4  ">
                 {wordCount(query.content)}
               </td>
-              <td className="py-2 px-4 border-b ">
+              <td className="py-2 px-4  ">
                 <button
                   onClick={() => {
                     handleCopy(query.content);
