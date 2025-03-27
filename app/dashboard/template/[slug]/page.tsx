@@ -17,7 +17,6 @@ import { useUser } from "@clerk/nextjs";
 import { Template } from "@/utils/types";
 import { useUsage } from "@/context/usage";
 
-
 const Page = () => {
   const params = useParams();
   const isValidSlug = params && params.slug && typeof params.slug === "string";
@@ -34,7 +33,7 @@ const Page = () => {
 
   //hooks
   const { user } = useUser();
-  const {fetchUsage} = useUsage();
+  const { fetchUsage, subscribed, count } = useUsage(); //context
   const email = user?.primaryEmailAddress?.emailAddress || "";
 
   useEffect(() => {
@@ -133,14 +132,18 @@ const Page = () => {
             ))}
             <Button
               type="submit"
-              disabled={isLoading}
+              disabled={
+                isLoading ||
+                (!subscribed &&
+                  count >= Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE))
+              }
               className="w-full py-6 cursor-pointer"
             >
-              {isLoading ? (
-                <Loader2Icon className="animate-spin mr-2" />
-              ) : (
-                "Generate content"
-              )}
+              {isLoading && <Loader2Icon className="animate-spin mr-2" />}
+              {subscribed &&
+              count < Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
+                ? "Generate content"
+                : "Subscribe to generate more content"}
             </Button>
           </form>
         </div>

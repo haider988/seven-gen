@@ -3,12 +3,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { usageCount } from "@/actions/ai";
 import { useUser } from "@clerk/nextjs";
+import { checkUserSusbcription } from "@/actions/stripe";
 
 interface UsageContextType {
   count: number;
   fetchUsage: () => void;
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  subscribed: boolean;
 }
 
 const UsageContext = createContext<UsageContextType | null>(null);
@@ -19,6 +21,7 @@ export const UsageProvider = ({
   //state
   const [count, setCount] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
 
   //hooks
   const { user } = useUser();
@@ -40,13 +43,25 @@ export const UsageProvider = ({
   }, [email]);
 
   useEffect(() => {
-    if (count > 100) {
+    if (
+      !subscribed &&
+      count > Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
+    ) {
       setOpenModal(true);
+    } else {
+      setOpenModal(false);
     }
   }, [count]);
+
+  async function fetchSubscription() {
+    const resp = await checkUserSusbcription();
+
+    setSubscribed(resp?.ok || false);
+  }
+
   return (
     <UsageContext.Provider
-      value={{ count, fetchUsage, openModal, setOpenModal }}
+      value={{ count, fetchUsage, openModal, setOpenModal, subscribed }}
     >
       {children}
     </UsageContext.Provider>

@@ -6,9 +6,9 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 const Usage = () => {
-  const { count } = useUsage();
-  const credits = 10000;
-  const percentage = (count / credits) * 100;
+  const { count, subscribed } = useUsage();
+  const credits = Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE);
+  const percentage = subscribed ? 100 : Math.min((count / credits) * 100, 100);
   return (
     <div className="m-2">
       <div className="rounded-lg shadow border p-2">
@@ -20,7 +20,10 @@ const Usage = () => {
           ></div>
         </div>
         <h2 className="text-sm my-2">
-          {count} / {credits} credits used
+          {subscribed
+            ? "Unlimited credits"
+            : `${count} / ${credits} credits used`}
+          {/* {count} / {credits} credits used */}
         </h2>
       </div>
       <Link href={"/membership"}>
