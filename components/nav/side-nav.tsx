@@ -9,6 +9,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Usage from "./usage";
+import SignUpModal from "../modal/sign-up-modal";
 
 const menu = [
   {
@@ -48,9 +49,12 @@ const SideNav = () => {
           >
             <Link href={menuItem.path}>
               <div className="flex justify-center md:items-center md:justify-start w-full">
-                <Link href={menuItem.path} className="flex w-full cursor-pointer">
+                <Link
+                  href={menuItem.path}
+                  className="flex w-full cursor-pointer"
+                >
                   <menuItem.icon />{" "}
-                  <span className="ml-0 md:ml-2 hidden md:inline">
+                  <span className="ml-3 md:ml-2 md:inline">
                     {menuItem.name}
                   </span>
                 </Link>
@@ -61,6 +65,7 @@ const SideNav = () => {
       </ul>
       <div className="pb-20 mt-auto">
         <Usage />
+        <SignUpModal />
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ const TopNav = () => {
     <nav className="flex justify-between items-center p-4 shadow gap-4 h-16">
       <Toaster />
       <Link href={"/"}> Seven GEN</Link>
+      <Link href={"/membership"}>🔥Join free or $9.99/month</Link>
       <div className="flex justify-center items-center">
         {isSignedIn ? (
           <Link
@@ -27,12 +28,12 @@ const TopNav = () => {
         ) : null}
         <SignedOut>
           <SignInButton mode="modal">
-            <button className="mr-4  text-white rounded cursor-pointer">
+            <button className="mr-4 text-slate-800 dark:text-white rounded cursor-pointer">
               Sign In
             </button>
           </SignInButton>
           <SignUpButton mode="modal">
-            <button className=" text-white rounded cursor-pointer">
+            <button className="text-slate-800 dark:text-white rounded cursor-pointer">
               Sign Up
             </button>
           </SignUpButton>

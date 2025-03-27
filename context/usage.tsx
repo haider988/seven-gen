@@ -4,9 +4,11 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { usageCount } from "@/actions/ai";
 import { useUser } from "@clerk/nextjs";
 
-interface UsageContextType{
-    count:number;
-    fetchUsage: ()=>void;
+interface UsageContextType {
+  count: number;
+  fetchUsage: () => void;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UsageContext = createContext<UsageContextType | null>(null);
@@ -16,6 +18,7 @@ export const UsageProvider = ({
 }: Readonly<{ children: React.ReactNode }>) => {
   //state
   const [count, setCount] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
 
   //hooks
   const { user } = useUser();
@@ -35,8 +38,18 @@ export const UsageProvider = ({
       fetchUsage();
     }
   }, [email]);
+
+  useEffect(() => {
+    if (count > 100) {
+      setOpenModal(true);
+    }
+  }, [count]);
   return (
-    <UsageContext.Provider value={{ count, fetchUsage }}>{children}</UsageContext.Provider>
+    <UsageContext.Provider
+      value={{ count, fetchUsage, openModal, setOpenModal }}
+    >
+      {children}
+    </UsageContext.Provider>
   );
 };
 
