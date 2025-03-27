@@ -26,8 +26,8 @@ export default function SignUpModal() {
           <br />
           <DialogDescription>
             <p>
-              🎉 Congrats! You have generated 10,000 words with our AI tool.
-              That's amazing!{" "}
+              {`🎉 Congrats! You have generated 10,000 words with our AI tool.
+              That's amazing!{" "}`}
             </p>
             <p>
               🔒 Ready to take your content creation to the next level? Upgrade
@@ -40,8 +40,8 @@ export default function SignUpModal() {
               <li>🛠️ Priority customer support</li>
             </ul>
             <p>
-              💡 Don't let your creativity hit a wall. Upgrade now and keep the
-              ideas flowing!
+              {`💡 Don't let your creativity hit a wall. Upgrade now and keep the
+              ideas flowing!`}
             </p>
 
             <div className="m-5 text-center">

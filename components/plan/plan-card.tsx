@@ -44,6 +44,7 @@ export default function PlanCard({
         }
       } catch (err: any) {
         toast.error("An unexpected error occurred. Please try again later.");
+        console.log("error", err);
       } finally {
         setLoading(false);
       }
