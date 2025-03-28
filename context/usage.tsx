@@ -39,6 +39,7 @@ export const UsageProvider = ({
   useEffect(() => {
     if (email) {
       fetchUsage();
+      fetchSubscription();
     }
   }, [email]);
 
