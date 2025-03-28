@@ -16,15 +16,15 @@ import { useUsage } from "@/context/usage";
 const TopNav = () => {
   const { isSignedIn, user } = useUser();
   const { subscribed } = useUsage();
-  console.log('subss>>',subscribed)
+  console.log("subss>>", subscribed);
   return (
     <nav className="flex justify-between items-center p-4 shadow gap-4 h-16">
       <Toaster />
       <Link href={"/"}> Seven GEN</Link>
+      <Link href={"/gen-ai"}>Gen-AI</Link>
       {!subscribed && (
         <Link href={"/membership"}>🔥Join free or $9.99/month</Link>
       )}
-      <Link href={'/gen-ai'}>Gen-AI</Link>
       <div className="flex justify-center items-center">
         {isSignedIn ? (
           <Link

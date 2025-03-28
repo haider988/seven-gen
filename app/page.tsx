@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import SignInModal from "@/components/modal/sign-in-modal";
 import PromoCard from "@/components/cards/promo-card";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
         <div className="relative z-10 flex items-center justify-center h-full">
           <div className="text-center">
             <SignInModal />
-            <h1 className="text-white text-7xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4">
+            <h1 className="dark:text-white text-7xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4">
               AI Content Generator
             </h1>
             <p className="text-white mb-5">
@@ -24,7 +25,7 @@ export default function Home() {
               single click and more
             </p>
             <Link href="/dashboard">
-              <Button variant="outline">Get started</Button>
+              <Badge variant="secondary" className="hover:bg-gray-600 p-2">Get started</Badge>
             </Link>
           </div>
         </div>
@@ -62,7 +63,7 @@ export default function Home() {
 
       <footer className="py-4 text-center border-t-2">
         <p className="text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} Seven-Gen. Developer by <strong>Syed Bilal Haider</strong>.
+          &copy; {new Date().getFullYear()} Seven-Gen. Developed by <strong>Syed Bilal Haider</strong>.
         </p>
       </footer>
     </>

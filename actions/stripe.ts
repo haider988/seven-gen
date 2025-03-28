@@ -97,21 +97,31 @@ export async function createCustomerPortalSession() {
   const user = await currentUser();
   const customerEmail = user?.emailAddresses[0]?.emailAddress;
 
+  if (!customerEmail) {
+    console.error("User email not found");
+    return { error: "User email not found" };
+  }
+
   try {
-    const transaction = await Transaction.findOne({
-      customerEmail,
-    });
+    const transaction = await Transaction.findOne({ customerEmail });
+
+    if (!transaction || !transaction.customerId) {
+      console.error("No Stripe customer ID found for this user");
+      return { error: "No customer history found. Please contact support." };
+    }
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: transaction.customerId,
       return_url: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
     });
 
-    console.log("portal session => ", portalSession);
+    console.log("Portal session => ", portalSession);
 
-    return portalSession.url ?? `${process.env.NEXT_PUBLIC_URL}/dashboard`;
+    return {
+      url: portalSession.url ?? `${process.env.NEXT_PUBLIC_URL}/dashboard`,
+    };
   } catch (err) {
-    console.error(err);
-    return null;
+    console.error("Error creating customer portal session:", err);
+    return { error: "An error occurred while creating the portal session." };
   }
 }

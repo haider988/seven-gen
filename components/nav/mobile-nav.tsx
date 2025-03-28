@@ -1,6 +1,11 @@
 import React from "react";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import SideNav from "@/components/nav/side-nav";
 
 export default function MobileNav() {
@@ -15,7 +20,8 @@ export default function MobileNav() {
           </SheetTrigger>
 
           <SheetContent side="left" className="w-[300px]">
-            <div className="mt-5"></div>
+            {/* ✅ Add SheetTitle for accessibility */}
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
             <SideNav />
           </SheetContent>
         </Sheet>

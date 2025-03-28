@@ -2,11 +2,17 @@
 import React from "react";
 import { createCustomerPortalSession } from "@/actions/stripe";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 export default function Billing() {
   const handleClick = async () => {
-    const response = await createCustomerPortalSession();
-    window.location.href = response as string;
+    const res = await createCustomerPortalSession();
+
+    if (res.error) {
+      toast.error(res.error); // Show an alert or some UI message
+    } else {
+      window.location.href = res.url!; // Redirect to Stripe portal
+    }
   };
 
   return (
